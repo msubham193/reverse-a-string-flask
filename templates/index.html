@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Reverse String API</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+      }
+      h1 {
+        text-align: center;
+        color: #333;
+      }
+      form {
+        width: 50%;
+        margin: auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+      }
+      label {
+        display: block;
+        margin-bottom: 10px;
+        color: #333;
+      }
+      input[type="text"] {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        box-sizing: border-box;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+        background-color: #f8f8f8;
+      }
+      button[type="button"] {
+        background-color: #e1560b;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+      button[type="button"]:hover {
+        background-color: #45a049;
+      }
+      p#reversed_string {
+        margin-top: 20px;
+        font-size: 18px;
+        color: #333;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Enter the keyword to reverse</h1>
+    <form>
+      <label for="input_string">Input String:</label>
+      <input type="text" id="input_string" name="input_string" />
+      <button type="button" onclick="reverseString()">Reverse String</button>
+    </form>
+    <p id="reversed_string"></p>
+    <script>
+      function reverseString() {
+        const inputString = document.getElementById("input_string").value;
+        fetch("/reverse_string", {
+          method: "POST",
+          body: inputString,
+        })
+          .then((response) => response.text())
+          .then((data) => {
+            document.getElementById(
+              "reversed_string"
+            ).innerHTML = `Reversed String: ${data}`;
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      }
+    </script>
+  </body>
+</html>
